@@ -21,10 +21,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 
-// דוגמה למסך בית
-app.get("/", (req, res) => {
-    res.render("login", { user: "אורח" });
-});
+
+// דוגמה למסך בית- דף התחברות
+const authRoutes = require("./Routers/auth");
+app.use("/", authRoutes);
+
 
 
 
