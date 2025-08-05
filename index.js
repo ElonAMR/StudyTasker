@@ -27,8 +27,21 @@ const authRoutes = require("./Routers/auth");
 app.use("/", authRoutes);
 
 
+const db = require("./db");
 
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+
+// // בדיקת חיבור למסד נתונים
+// async function testDBConnection() {
+//     try {
+//         const [rows] = await db.query("SELECT 1");
+//         console.log("✅ Database connected successfully!");
+//     } catch (err) {
+//         console.error("❌ Failed to connect to database:", err);
+//     }
+// }
+
