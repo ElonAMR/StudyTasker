@@ -8,7 +8,7 @@ async function CheckLogin(req, res,next) {
 
     const promisePool = db_pool.promise();
     try {
-        const [rows] = await promisePool.query(Query);
+        const [rows] = await promisePool.query(Query); // objects in arr and result from Query in index [0]
 
         if (rows.length > 0) {
             req.validUser = true;
@@ -27,4 +27,4 @@ async function CheckLogin(req, res,next) {
 
 module.exports = {
     CheckLogin,
-}
+};

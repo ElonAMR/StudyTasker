@@ -41,10 +41,11 @@ app.listen(PORT, () => {
 // // בדיקת חיבור למסד נתונים
 // async function testDBConnection() {
 //     try {
-//         const [rows] = await db.query("SELECT 1");
+//         const [rows] = await db_M.query("SELECT 1");
 //         console.log("✅ Database connected successfully!");
 //     } catch (err) {
 //         console.error("❌ Failed to connect to database:", err);
 //     }
 // }
-
+//
+// testDBConnection();
