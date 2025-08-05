@@ -1,39 +1,42 @@
-//npm install express ,ejs ,dotenv, mysql2
+//npm install express ,ejs ,body-parser ,dotenv, mysql2 ,slashes@2.0.0 , md5
 
 const express = require('express');
+const app = express();
+app.use(express.json());
+
+const bodyParser = require('body-parser');
 const path = require("path");
+app.use(bodyParser.urlencoded({extended: false}));
 
 const dotenv = require("dotenv");
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT || 5000;
+
+let db_M =require('./db');
+global.db_pool = db_M.pool;
 
 // הגדרות תצוגה
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// קבצים סטטיים
-app.use(express.static(path.join(__dirname, "public")));
 
-// תמיכה ב-POST
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+global.addSlashes    = require('slashes').addSlashes;
+global.stripSlashes  = require('slashes').stripSlashes;
 
 
 
-// דוגמה למסך בית- דף התחברות
-const authRoutes = require("./Routers/auth");
+
+// Routers && Pages
+const authRoutes = require("./Routers/auth_R");
 app.use("/", authRoutes);
 
 
-const db = require("./db");
 
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
-
 
 // // בדיקת חיבור למסד נתונים
 // async function testDBConnection() {
