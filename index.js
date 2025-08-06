@@ -31,6 +31,8 @@ global.stripSlashes  = require('slashes').stripSlashes;
 const authRoutes = require("./Routers/auth_R");
 app.use("/", authRoutes);
 
+const dashboardRoutes = require('./Routers/dashboard_R');
+app.use('/dashboard', dashboardRoutes);
 
 
 
