@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const { AddTask } = require('../Middleware/task_Mid');
+
 
 // main for tasks pages
 router.get('/', (req, res) => {
@@ -11,7 +13,8 @@ router.get('/', (req, res) => {
 });
 
 
-//  add tasks pages
+
+//  GET add tasks pages
 router.get('/add', (req, res) => {
     // if (!req.user) return res.redirect('/');
     res.render('tasks_add', {
@@ -19,7 +22,10 @@ router.get('/add', (req, res) => {
     });
 });
 
+// שליחת טופס הוספה
+router.post('/add', AddTask, (req, res) => {
 
+});
 
 
 
