@@ -37,7 +37,8 @@ app.use('/dashboard', dashboardRoutes);
 const tasksRoutes = require('./Routers/tasks_R');
 app.use('/tasks', tasksRoutes);
 
-
+const categoryRoutes = require('./Routers/category_R');
+app.use('/category', categoryRoutes);
 
 
 
