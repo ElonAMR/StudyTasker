@@ -76,8 +76,29 @@ async function ShowTasks(req, res, next) {
     next();
 }
 
+
+async function DeleteTask(req, res, next) {
+    // let task_id = (req.body.task_id !== undefined) ? addSlashes(req.body.task_id) : "";
+    // let user_id = req.user.id;
+    //
+    // let query = `DELETE FROM tasks WHERE id = '${task_id}' AND user_id = '${user_id}'`;
+    // const promisePool = db_pool.promise();
+    //
+    // try {
+    //     const [result] = await promisePool.query(query);
+    //     req.deletionSuccess = result.affectedRows > 0;
+    // } catch (err) {
+    //     console.log("❌ שגיאה במחיקת משימה:", err);
+    //     req.deletionSuccess = false;
+    // }
+
+    next();
+}
+
+
 module.exports = {
     AddTask,
     EditTask,
-    ShowTasks
+    ShowTasks,
+    DeleteTask
 };

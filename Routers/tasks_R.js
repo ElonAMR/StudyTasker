@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { AddTask, EditTask,ShowTasks } = require('../Middleware/task_Mid');
+const { AddTask, EditTask,ShowTasks,DeleteTask} = require('../Middleware/task_Mid');
 
 
 // main for tasks pages
@@ -54,5 +54,18 @@ router.get('/list', ShowTasks, (req, res) => {
     });
 });
 
+
+
+
+// תצוגת טופס מחיקה
+router.get('/delete', (req, res) => {
+    // if (!req.user) return res.redirect('/');
+    res.render('tasks/tasks_delete');
+});
+
+// שליחת בקשת מחיקה
+router.post('/delete', DeleteTask, (req, res) => {
+
+});
 
 module.exports = router;
