@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <title>הוספת משימה חדשה</title>
+</head>
+<body>
+<h1>➕ הוספת משימה</h1>
+
+<form action="/tasks/add" method="POST">
+    <label for="title">כותרת:</label>
+    <input type="text" id="title" name="title" maxlength="20" required><br><br>
+
+    <label for="description">תיאור:</label><br>
+    <textarea id="description" name="description" maxlength="200" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="due_date">תאריך יעד:</label>
+    <input type="date" id="due_date" name="due_date" required><br><br>
+
+    <label for="category_id">קטגוריה:</label>
+    <select id="category_id" name="category_id">
+        <option value="1">אישי</option>
+        <option value="2">לימודים</option>
+        <option value="3">עבודה</option>
+        <!-- בעתיד נטען דינמית מהדאטה-בייס -->
+    </select><br><br>
+
+    <label for="is_done">בוצע:</label>
+    <input type="checkbox" id="is_done" name="is_done"><br><br>
+
+    <button type="submit">✔️ הוסף משימה</button>
+</form>
+
+<br>
+<a href="/tasks">חזרה לתפריט המשימות</a>
+</body>
+</html>

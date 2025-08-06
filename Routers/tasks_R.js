@@ -10,4 +10,20 @@ router.get('/', (req, res) => {
     });
 });
 
+
+//  add tasks pages
+router.get('/add', (req, res) => {
+    // if (!req.user) return res.redirect('/');
+    res.render('tasks_add', {
+        user: req.user
+    });
+});
+
+
+
+
+
+
+
+
 module.exports = router;
