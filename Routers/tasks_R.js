@@ -48,7 +48,7 @@ router.post('/edit', EditTask, (req, res) => {
 
 router.get('/list', ShowTasks, (req, res) => {
     // if (!req.user) return res.redirect('/');
-    res.render('tasks/tasks_list', {
+    res.render('tasks_list', {
         user: req.user,
         tasks: req.tasks
     });
@@ -60,7 +60,7 @@ router.get('/list', ShowTasks, (req, res) => {
 // תצוגת טופס מחיקה
 router.get('/delete', (req, res) => {
     // if (!req.user) return res.redirect('/');
-    res.render('tasks/tasks_delete');
+    res.render('tasks_delete');
 });
 
 // שליחת בקשת מחיקה
