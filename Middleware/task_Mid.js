@@ -26,18 +26,38 @@ async function AddTask(req, res, next) {
     next();
 }
 
-// Middleware להצגת כל המשימות
-async function GetAllTasks(req, res, next) { ... }
 
-// Middleware למחיקת משימה
-async function DeleteTask(req, res, next) { ... }
 
-// Middleware לעריכת משימה
-async function EditTask(req, res, next) { ... }
+async function EditTask(req, res, next) {
+    let task_id    = req.body.task_id     || "";
+    let title      = req.body.title       || "";
+    let description= req.body.description || "";
+    let due_date   = req.body.due_date    || "";
+    let is_done    = req.body.is_done     || 0;
+
+    // בניית השאילתה (הגיוני שתשופר מחר)
+    let Query = `
+        UPDATE tasks
+        SET title = '${addSlashes(title)}',
+            description = '${addSlashes(description)}',
+            due_date = '${addSlashes(due_date)}',
+            is_done = '${is_done}'
+        WHERE id = '${addSlashes(task_id)}'
+    `;
+
+    const promisePool = db_pool.promise();
+    try {
+        await promisePool.query(Query);
+        req.taskEdited = true;
+    } catch (err) {
+        console.log("❌ שגיאה בעריכת משימה:", err);
+        req.taskEdited = false;
+    }
+
+    next();
+}
 
 module.exports = {
     AddTask,
-    GetAllTasks,
-    DeleteTask,
     EditTask
 };
