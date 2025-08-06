@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { AddTask, EditTask } = require('../Middleware/task_Mid');
+const { AddTask, EditTask,ShowTasks } = require('../Middleware/task_Mid');
 
 
 // main for tasks pages
@@ -44,6 +44,15 @@ router.post('/edit', EditTask, (req, res) => {
 
 });
 
+
+
+router.get('/list', ShowTasks, (req, res) => {
+    // if (!req.user) return res.redirect('/');
+    res.render('tasks/tasks_list', {
+        user: req.user,
+        tasks: req.tasks
+    });
+});
 
 
 module.exports = router;

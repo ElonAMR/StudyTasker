@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <title>רשימת משימות</title>
+</head>
+<body>
+<h1>📋 רשימת משימות</h1>
+
+<% if (tasks && tasks.length > 0) { %>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>מס'</th>
+            <th>כותרת</th>
+            <th>תיאור</th>
+            <th>תאריך יעד</th>
+            <th>בוצעה</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% tasks.forEach((task, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= task.title %></td>
+                <td><%= task.description %></td>
+                <td><%= task.due_date.toISOString().slice(0, 10) %></td>
+                <td><%= task.is_done ? "✅" : "❌" %></td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p>אין משימות להצגה.</p>
+<% } %>
+</body>
+</html>

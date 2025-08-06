@@ -57,7 +57,27 @@ async function EditTask(req, res, next) {
     next();
 }
 
+async function ShowTasks(req, res, next) {
+    const user_id = req.user.id;
+    const promisePool = db_pool.promise();
+
+    try {
+        const [rows] = await promisePool.query(`
+            SELECT * FROM tasks
+            WHERE user_id = '${(user_id)}'
+            ORDER BY due_date ASC
+        `);
+        req.tasks = rows;
+    } catch (err) {
+        console.log("❌ שגיאה בשליפת משימות:", err);
+        req.tasks = [];
+    }
+
+    next();
+}
+
 module.exports = {
     AddTask,
-    EditTask
+    EditTask,
+    ShowTasks
 };
