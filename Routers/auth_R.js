@@ -1,20 +1,19 @@
 const express = require('express');
 const router = express.Router();
 
-const {CheckLogin} = require("../Middleware/user_Mid");
+const user_Mid = require("../middleware/user_Mid");
 
 // GET /login
 router.get("/", (req, res) => {
-    res.render("login");
+    res.render("login",{});
 });
 
 // POST /login
-router.post("/", CheckLogin ,(req, res) => {
-    if (req.validUser){
-        res.send(` שלום, ${req.user.username}! תפקידך הוא: ${req.user.role}`);
-    } else {
-        res.status(401).send("שם משתמש או סיסמה שגויים");
-    }
+router.post("/", user_Mid.CheckLogin, (req, res) => {
+    if(req.validUser)
+        res.redirect("/dashboard");
+    else
+        res.redirect("/");
 });
 
 

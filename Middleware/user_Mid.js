@@ -2,31 +2,27 @@ const md5 = require('md5');
 
 async function isLogged(req, res,next){
     const jwtToken = req.cookies.ImLoggedToYoman;
-    let user_id=-1;
-    if (jwtToken !== "") {
-        jwt.verify(jwtToken, 'myPrivateKey', async (err, decodedToken) => {
-            if (err) {
-                console.log("err=",err);
-            } else {
-                let data = decodedToken.data;
-                user_id = data.split(",")[0];
-                req.user_id=user_id;
-            }
-        })
+    if (!jwtToken) {
+        return res.redirect("/"); // לא קיים טוקן
     }
 
-    if(user_id < 0)
-        res.redirect("/");
-
-    next();
+    try {
+        const decodedToken = jwt.verify(jwtToken, 'myPrivateKey');
+        const data = decodedToken.data;
+        const user_id = data.split(",")[0];
+        req.user_id = user_id;
+        next();
+    } catch (err) {
+        console.log("שגיאה באימות טוקן:", err);
+        return res.redirect("/"); // טוקן שגוי
+    }
 }
 
 
 async function CheckLogin(req, res,next) {
     let uname   = (req.body.uname  !== undefined) ? addSlashes(req.body.uname     ) : "";
-    let passwd  = (req.body.passwd !== undefined) ?            req.body.passwd      : "";
-    let enc_pass = md5("A"+passwd);
-    let Query = `SELECT * FROM users WHERE uname = '${uname}' AND passwd = '${enc_pass}'`;
+    let passwd  = (req.body.passwd !== undefined) ? req.body.passwd  : "";
+    let Query = `SELECT * FROM users WHERE username = '${uname}' AND password = '${passwd}'`;
 
     const promisePool = db_pool.promise();
     let rows=[];
@@ -47,12 +43,15 @@ async function CheckLogin(req, res,next) {
         res.cookie("ImLoggedToYoman", token, {
             maxAge: 31*24*60*60 * 1000, // 3hrs in ms
         });
+
+    }else {
+        req.validUser = false;
     }
     next();
 }
 
 
 module.exports = {
+    CheckLogin,
     isLogged,
-    CheckLogin
-};
+}
