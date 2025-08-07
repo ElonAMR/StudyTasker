@@ -34,17 +34,19 @@ global.stripSlashes  = require('slashes').stripSlashes;
 
 
 // Routers && Pages
+const user_Mid = require('./Middleware/user_Mid');
+
 const authRoutes = require("./Routers/auth_R");
 app.use("/", authRoutes);
 
 const dashboardRoutes = require('./Routers/dashboard_R');
-app.use('/dashboard', dashboardRoutes);
+app.use('/dashboard',[user_Mid.isLogged], dashboardRoutes);
 
 const tasksRoutes = require('./Routers/tasks_R');
-app.use('/tasks', tasksRoutes);
+app.use('/tasks',[user_Mid.isLogged], tasksRoutes);
 
 const categoryRoutes = require('./Routers/category_R');
-app.use('/category', categoryRoutes);
+app.use('/category',[user_Mid.isLogged], categoryRoutes);
 
 
 

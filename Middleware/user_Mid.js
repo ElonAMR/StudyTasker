@@ -2,20 +2,22 @@ const md5 = require('md5');
 
 async function isLogged(req, res,next){
     const jwtToken = req.cookies.ImLoggedToYoman;
-    if (!jwtToken) {
-        return res.redirect("/"); // לא קיים טוקן
+    let user_id=-1;
+    if (jwtToken !== "") {
+        jwt.verify(jwtToken, 'myPrivateKey', async (err, decodedToken) => {
+            if (err) {
+                console.log("err=",err);
+            } else {
+                let data = decodedToken.data;
+                user_id = data.split(",")[0];
+                req.user_id=user_id;
+            }
+        })
     }
+    if(user_id < 0)
+        res.redirect("/");
 
-    try {
-        const decodedToken = jwt.verify(jwtToken, 'myPrivateKey');
-        const data = decodedToken.data;
-        const user_id = data.split(",")[0];
-        req.user_id = user_id;
-        next();
-    } catch (err) {
-        console.log("שגיאה באימות טוקן:", err);
-        return res.redirect("/"); // טוקן שגוי
-    }
+    next();
 }
 
 
