@@ -13,6 +13,12 @@ dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
+
+let cookieParser = require('cookie-parser');
+app.use(cookieParser());
+global.jwt = require('jsonwebtoken');
+
+
 let db_M =require('./db');
 global.db_pool = db_M.pool;
 
