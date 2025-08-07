@@ -1,4 +1,4 @@
-//npm install express ,ejs ,body-parser ,dotenv, mysql2 ,slashes@2.0.0 , md5
+//npm install express ,ejs ,body-parser ,dotenv, mysql2 ,slashes@2.0.0 , md5 , jsonwebtoken , cookie-parser
 
 const express = require('express');
 const app = express();
