@@ -24,7 +24,18 @@ router.get('/add', (req, res) => {
 
 
 router.post('/add', AddCategory, (req, res) => {
+    if (req.success) {
+        // אפשר רידיירקט לתפריט/רשימה
+        // return res.redirect('/category');
+        // או JSON לדיבוג:
+        return res.status(200).json({ ok: true, id: req.insertId, user_id: req.user_id, name: req.newName });
+    }
 
+    const msg =
+        req.reason === 'EMPTY' ? 'שם קטגוריה חובה' :
+            req.reason === 'DB'    ? 'שגיאת מסד נתונים' : 'שגיאה בהוספה';
+
+    return res.status(400).render('categories_add', { error: msg });
 });
 
 

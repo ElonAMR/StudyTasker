@@ -8,11 +8,14 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>➕ הוספת קטגוריה</h2>
-    <form action="/categories/add" method="post">
+    <h2>➕ הוספת קטגוריה חדשה</h2>
+    <form action="/category/add" method="post">
         <label for="name">שם קטגוריה:</label>
         <input type="text" id="name" name="name" required>
         <button type="submit">הוסף</button>
     </form>
+    <% if (typeof error !== 'undefined') { %>
+        <p style="color:red;"><%= error %></p>
+    <% } %>
 </body>
 </html>
