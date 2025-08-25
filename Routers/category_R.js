@@ -51,7 +51,22 @@ router.get('/edit', (req, res) => {
 
 
 router.post('/edit', EditCategory, (req, res) => {
+    if (req.success) {
+        res.status(200).render('categories_edit', {
+            user: req.user,
+            message: `הקטגוריה עודכנה בהצלחה ל: ${req.updatedName}`
+        });
+    } else {
+        const msg =
+            req.reason === 'NOT_FOUND' ? 'לא נמצאה קטגוריה עם שם כזה' :
+                req.reason === 'DB'        ? 'שגיאה במסד הנתונים' :
+                    'שגיאה לא צפויה';
 
+        res.status(400).render('categories_edit', {
+            user: req.user,
+            error: msg
+        });
+    }
 });
 
 
